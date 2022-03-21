@@ -1,0 +1,53 @@
+import ecs100.*;
+import java.awt.Color;
+import javax.swing.JColorChooser;
+/**
+ * Microsoft paint clone 
+ * can change from line to circle 
+ * colour picker
+ * different line widths 
+ *
+ * @author Shayla C
+ * @version 21.3.2022
+ */
+public class MSPaintClone
+{
+    //Fields to remember "pressed" position
+    private double startX, startY;
+    private Color currentColor = Color.black;
+    private final double SIZE = 50.0;
+    private double lineWidth = 5.0;
+
+    /**
+     * Callback mouse method 
+     */
+    public void doMouse(String action, double x, double y){
+        if (action.equals("pressed")) {
+            this.startX = x;
+            this.startY = y;
+        } else if (action.equals("released")) {
+            UI.drawLine(this.startX, this.startY, x, y);
+        }
+    }
+
+    public MSPaintClone(){
+        UI.initialise();
+        UI.addButton("Quit", UI::quit);
+    }
+    
+    /**
+     * Sets initial line width 
+     */
+    private void setLineWidth(double width){
+        UI.setLineWidth(width);
+    }
+    
+    /**
+     * Main Routine 
+     */
+    public static void main(String[] args) {
+       MSPaintClone drawer = new MSPaintClone();
+       UI.addSlider("Line Width", 5, 30, 10, drawer::setLineWidth);
+       UI.setMouseListener(drawer::doMouse);
+    }
+}

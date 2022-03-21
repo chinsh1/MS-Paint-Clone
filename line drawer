@@ -1,0 +1,45 @@
+import ecs100.*;
+import java.awt.Color;
+import javax.swing.JColorChooser;
+/**
+ * Let user draw lines on graphics pane with the mouse 
+ *
+ * @author Shayla C
+ * @version 21.3.2022
+ */
+public class LineDrawer
+{
+    //Fields to remember "pressed" position
+    private double startX, startY;
+    private Color currentColor = Color.black;
+    
+    /**
+     * Callback mouse method 
+     */
+    public void doMouse(String action, double x, double y){
+        if (action.equals("pressed")) {
+            this.startX = x;
+            this.startY = y;
+        } else if (action.equals("released")) {
+            UI.drawLine(this.startX, this.startY, x, y);
+        }
+    }
+    
+    /**
+     * Callback to let user choose color 
+     */
+    public void doChooseColor(){
+        this.currentColor = JColorChooser.showDialog(null, "Choose Colour", currentColor);
+        UI.setColor(this.currentColor);
+    }
+    
+    /**
+     * Main Routine 
+     */
+    public static void main(String[] args) {
+        UI.setLineWidth(10);
+        LineDrawer drawer = new LineDrawer();
+        UI.setMouseListener(drawer::doMouse);
+        UI.addButton("Colour", drawer::doChooseColor);
+    }
+}

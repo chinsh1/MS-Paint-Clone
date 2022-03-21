@@ -1,0 +1,47 @@
+import ecs100.*;
+import java.awt.Color;
+/**
+ * Lets 
+ *
+ * @author Shayla C 
+ * @version 21.3.2022
+ */
+public class DrawShape
+{
+    private final double SIZE = 50.0;
+    /**
+     * Constructor for DrawShape
+     */
+    public DrawShape() {
+        UI.initialise();
+        UI.addButton("Quit", UI::quit);
+    }
+    
+    /**
+     * Mouse callback
+     */
+    private void doMouse(String action, double x, double y){
+        if (action.equals("clicked")) {
+            UI.fillOval( x, y, SIZE, SIZE);
+        }
+    }
+    
+    /**
+     * Set a random colour 
+     */
+    private void changeColor() {
+        Color col = new Color((float) Math.random(), 
+                               (float) Math.random(),
+                               (float) Math.random());
+        UI.setColor(col);
+    }
+    
+    /**
+     * Main Routine 
+     */
+    public static void main(String[] args) {
+        DrawShape obj = new DrawShape();
+        UI.addButton("Change Colour", obj::changeColor);
+        UI.setMouseListener(obj::doMouse);
+    }
+}

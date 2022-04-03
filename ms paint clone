@@ -47,7 +47,29 @@ public class MSPaintClone
      */
     public static void main(String[] args) {
        MSPaintClone drawer = new MSPaintClone();
+       MSPaintClone obj = new MSPaintClone();
        UI.addSlider("Line Width", 5, 30, 10, drawer::setLineWidth);
+       UI.addButton("Change Colour", drawer::changeColor);
+       //UI.addButton("Change Shape", obj::changeShape);
        UI.setMouseListener(drawer::doMouse);
     }
+    
+    /**
+     * Set a random colour 
+     */
+    private void changeColor() {
+        Color col = new Color((float) Math.random(), 
+                              (float) Math.random(),
+                              (float) Math.random());
+        UI.setColor(col);
+    }
+    
+    ///**
+     //* Mouse callback
+     //*/
+    //public void changeShape(String action, double x, double y){
+        //if (action.equals("clicked")) {
+            //UI.fillOval( x, y, SIZE, SIZE);
+        //}
+    //}
 }
